@@ -9,7 +9,9 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long studentID;
 
-    private Long userID;
+    @OneToOne
+    @JoinColumn(name = "userID", referencedColumnName = "userID")
+    private User user;
     private String name;
     private String email;
     private String address;
@@ -21,14 +23,6 @@ public class Student {
 
     public void setStudentID(Long studentID) {
         this.studentID = studentID;
-    }
-
-    public Long getUserID() {
-        return userID;
-    }
-
-    public void setUserID(Long userID) {
-        this.userID = userID;
     }
 
     public String getName() {
@@ -53,5 +47,13 @@ public class Student {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

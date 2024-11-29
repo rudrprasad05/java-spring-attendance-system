@@ -8,9 +8,11 @@ public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long adminID;
-
     private String name;
-    private Long userID;
+
+    @OneToOne
+    @JoinColumn(name = "userID", referencedColumnName = "userID")
+    private User user;
 
     // Getters and Setters
     public Long getAdminID() {
@@ -29,11 +31,11 @@ public class Admin {
         this.name = name;
     }
 
-    public Long getUserID() {
-        return userID;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserID(Long userID) {
-        this.userID = userID;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

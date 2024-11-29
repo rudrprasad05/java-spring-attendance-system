@@ -8,7 +8,13 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "home"; // This will look for a Thymeleaf template named "home.html"
+        return "home";
     }
+
+    @GetMapping("/logout")
+    public String logout() {
+        return "redirect:/";
+    }
+
 }
 

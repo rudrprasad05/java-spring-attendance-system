@@ -2,6 +2,8 @@ package com.assignment3.cs241.Group6.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "Teacher")
 public class Teacher {
@@ -9,10 +11,22 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long teacherID;
 
-    private Long userID;
     private String name;
     private String email;
     private String specialization;
+
+    // One-to-one relationship with User
+    @OneToOne
+    @JoinColumn(name = "userid", referencedColumnName = "userid")
+    private User user;
+
+    // One-to-one relationship with InviteLink
+    @OneToOne(mappedBy = "teacher", cascade = CascadeType.ALL)
+    private InviteLink inviteLink;
+
+    // One-to-Many with Subject
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Subject> subjects;
 
     // Getters and Setters
     public Long getTeacherID() {
@@ -21,14 +35,6 @@ public class Teacher {
 
     public void setTeacherID(Long teacherID) {
         this.teacherID = teacherID;
-    }
-
-    public Long getUserID() {
-        return userID;
-    }
-
-    public void setUserID(Long userID) {
-        this.userID = userID;
     }
 
     public String getName() {
@@ -54,4 +60,29 @@ public class Teacher {
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public InviteLink getInviteLink() {
+        return inviteLink;
+    }
+
+    public void setInviteLink(InviteLink inviteLink) {
+        this.inviteLink = inviteLink;
+    }
+
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
 }

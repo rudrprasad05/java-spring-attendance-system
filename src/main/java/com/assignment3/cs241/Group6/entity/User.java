@@ -12,7 +12,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId; // Changed to userId for Java conventions
+    private Long userID;
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -20,7 +20,15 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    private int role; // Adjust based on your application's requirements
+    @Column(nullable = false)
+    private int role;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Admin admin;
+
+    // One-to-one relationship with Teacher
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Teacher teacher;
 
     // Default constructor
     public User() {}
@@ -33,12 +41,12 @@ public class User implements UserDetails {
     }
 
     // Getters and Setters
-    public Long getUserId() {
-        return userId;
+    public Long getUserID() {
+        return userID;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserID(Long userId) {
+        this.userID = userId;
     }
 
     public String getUsername() {
@@ -63,6 +71,22 @@ public class User implements UserDetails {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     @Override
